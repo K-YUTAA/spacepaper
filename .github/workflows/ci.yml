@@ -1,0 +1,27 @@
+name: Build and test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Run regression tests
+        run: swift test --disable-sandbox
+      - name: Build universal release archive
+        run: ./scripts/package.sh
+      - name: Verify archive and signature
+        run: |
+          cd dist
+          shasum -a 256 -c SHA256SUMS
+          codesign --verify --strict SpacePaper.app
+          lipo -archs SpacePaper.app/Contents/MacOS/SpacePaper
