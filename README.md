@@ -9,9 +9,13 @@ Macのモニターと仮想デスクトップ（Spaces）に、それぞれ異�
 ## Homebrewからインストール
 
 ```sh
+brew tap K-YUTAA/tap
+brew trust --cask K-YUTAA/tap/spacepaper
 brew install --cask K-YUTAA/tap/spacepaper
 open -a SpacePaper
 ```
+
+`brew trust`を備えるHomebrewでは、上のコマンドでSpacePaperのcaskだけを信頼対象に登録します。`trust`がない古い版では、その行を省略できます。
 
 - macOS 14 Sonoma以降
 - Apple Silicon／Intel共通のUniversalアプリ
