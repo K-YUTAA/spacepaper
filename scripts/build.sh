@@ -12,6 +12,7 @@ swift build "${build_args[@]}"
 binary_dir="$(swift build "${build_args[@]}" --show-bin-path)"
 app_dir="$project_dir/dist/SpacePaper.app"
 mkdir -p "$app_dir/Contents/MacOS" "$app_dir/Contents/Resources"
+"$project_dir/scripts/build-icons.sh"
 cp "$binary_dir/SpacePaper" "$app_dir/Contents/MacOS/SpacePaper"
 /usr/bin/strip -S "$app_dir/Contents/MacOS/SpacePaper"
 python3 - "$app_dir/Contents/Info.plist" "$project_dir/VERSION" <<'PY'
@@ -24,6 +25,7 @@ info = {
     'CFBundleIdentifier': 'local.kitano.spacepaper',
     'CFBundleName': 'SpacePaper', 'CFBundleDisplayName': 'SpacePaper',
     'CFBundleExecutable': 'SpacePaper', 'CFBundlePackageType': 'APPL',
+    'CFBundleIconFile': 'AppIcon.icns',
     'CFBundleShortVersionString': version, 'CFBundleVersion': version,
     'LSMinimumSystemVersion': '14.0', 'LSUIElement': True,
     'NSHighResolutionCapable': True,

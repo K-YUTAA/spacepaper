@@ -274,7 +274,7 @@ final class Controller {
     }
     private func publish(reason: String, visible: [[String: Any]], pendingCount: Int = 0, error: String? = nil) {
         let ids = visible.compactMap { $0["actualImage"] as? String }
-        var value: [String: Any] = ["updatedAt": ISO8601DateFormatter().string(from: Date()), "version": "1.1.0",
+        var value: [String: Any] = ["updatedAt": ISO8601DateFormatter().string(from: Date()), "version": AppVersion.current,
             "pid": getpid(), "paused": store.state.paused, "reason": reason, "summary": summary, "detail": detail,
             "displayCount": displayCount, "desktopCount": desktopCount, "imageCount": assets.count,
             "unassignedCount": pendingCount, "writesThisSession": totalWrites, "visible": visible,

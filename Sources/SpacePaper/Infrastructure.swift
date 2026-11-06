@@ -1,6 +1,12 @@
 import AppKit
 import SpacePaperCore
 
+enum AppVersion {
+    static var current: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "development"
+    }
+}
+
 enum AppPaths {
     static let root = FileManager.default.homeDirectoryForCurrentUser
         .appendingPathComponent("Library/Application Support/SpacePaper", isDirectory: true)

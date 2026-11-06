@@ -25,3 +25,5 @@ jobs:
           shasum -a 256 -c SHA256SUMS
           codesign --verify --strict SpacePaper.app
           lipo -archs SpacePaper.app/Contents/MacOS/SpacePaper
+          test -s SpacePaper.app/Contents/Resources/AppIcon.icns
+          test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIconFile' SpacePaper.app/Contents/Info.plist)" = AppIcon.icns

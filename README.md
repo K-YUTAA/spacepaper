@@ -1,10 +1,12 @@
 # SpacePaper
 
+<img src="assets/app-icon.png" width="96" height="96" alt="SpacePaperのアプリアイコン">
+
 Macのモニターと仮想デスクトップ（Spaces）に、それぞれ異なる壁紙を自動で割り当てるメニューバーアプリです。
 
 モニターをつなぎ替えたりデスクトップを増やしたりして同じ壁紙が引き継がれても、表示したときに重複を補正します。静止画の管理に絞り、壁紙が正しい場合は再設定しません。
 
-現在の配布版は **v1.1.0の試用ビルド**です。Developer ID署名・Appleの公証は未実施です。Intelを含むUniversalバイナリですが、実機確認はApple SiliconのmacOS 27.2で行っています。
+現在の配布版は **v1.1.1の試用ビルド**です。Developer ID署名・Appleの公証は未実施です。Intelを含むUniversalバイナリですが、実機確認はApple SiliconのmacOS 27.2で行っています。
 
 ## Homebrewからインストール
 
@@ -132,6 +134,8 @@ swift test --disable-sandbox
 ```
 
 `build.sh`は実行中のMac向け、`package.sh`はApple Silicon／Intel共通のZIPと`SHA256SUMS`を`dist/`に作ります。署名はアドホック署名です。
+
+画像生成によるアイコン原画は`assets/icon-artwork.png`、macOS用に輪郭を揃えた画像は`assets/app-icon.png`です。ビルド時に`scripts/build-icons.sh`が16px〜1024pxの各サイズを生成し、`AppIcon.icns`としてアプリへ組み込みます。
 
 `./scripts/install.sh`はソースからビルドしたアプリを`~/Applications`へ入れる開発用スクリプトです。既存のアプリをバックアップして更新し、自動起動をオフにしていた場合はその設定を維持します。Homebrew管理のアプリを使う場合は上のHomebrew手順を使ってください。
 

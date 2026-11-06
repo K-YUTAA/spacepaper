@@ -71,7 +71,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             commandWatch = watch; watch.resume()
             processMailbox()
             controller?.start()
-            log("started version=1.1.0 pid=\(ProcessInfo.processInfo.processIdentifier)")
+            log("started version=\(AppVersion.current) pid=\(ProcessInfo.processInfo.processIdentifier)")
         } catch { startupError = error.localizedDescription; log("startup-error \(error.localizedDescription)") }
 
         rebuildMenu()
