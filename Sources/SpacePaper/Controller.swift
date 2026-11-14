@@ -53,7 +53,6 @@ final class Controller {
     let store: StateStore
     let reader: SpaceReader
     private(set) var assets: [String: WallpaperAsset] = [:]
-    var onStatus: (() -> Void)?
     private(set) var summary = "起動しています…"
     private(set) var detail = ""
     private(set) var displayCount = 0
@@ -174,7 +173,7 @@ final class Controller {
             let token = generation
             let force = forceReload
             forceReload = false; busy = true
-            if assets.isEmpty { summary = "画像を読み込み中…"; onStatus?() }
+            if assets.isEmpty { summary = "画像を読み込み中…" }
             imageQueue.async { [weak self] in
                 guard let self = self else { return }
                 let result = Result { try autoreleasepool { try self.worker.check(state: state, urls: urls, force: force) } }
@@ -283,6 +282,5 @@ final class Controller {
         if let data = try? JSONSerialization.data(withJSONObject: value, options: [.prettyPrinted, .sortedKeys]) {
             try? data.write(to: AppPaths.status, options: .atomic)
         }
-        onStatus?()
     }
 }

@@ -49,9 +49,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         item.button?.image = NSImage(systemSymbolName: "photo.stack", accessibilityDescription: "SpacePaper")
         item.button?.image?.isTemplate = true
+        // Keep status in the click-open menu; hover tooltips can linger over other windows.
+        item.button?.toolTip = nil
+        item.button?.setAccessibilityLabel("SpacePaper")
         do {
             controller = try Controller()
-            controller?.onStatus = { [weak self] in self?.refreshTooltip() }
             if arguments.contains("--enable-login") {
                 try setStartAtLogin(true)
             } else if let wanted = controller?.store.state.startAtLogin {
@@ -75,7 +77,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         } catch { startupError = error.localizedDescription; log("startup-error \(error.localizedDescription)") }
 
         rebuildMenu()
-        refreshTooltip()
     }
 
     func processMailbox() {
@@ -108,10 +109,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func perform(_ operation: () throws -> Void) {
         do { try operation() } catch { controller?.report(error); alert(error.localizedDescription) }
-    }
-
-    func refreshTooltip() {
-        item.button?.toolTip = "SpacePaper · \(controller?.summary ?? startupError ?? "待機中")"
     }
 
     func menuWillOpen(_ menu: NSMenu) { rebuildMenuContents(menu) }
